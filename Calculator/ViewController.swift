@@ -19,7 +19,14 @@ class ViewController: UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+	
+	//
+	// First demo code
+	//
 
+	@IBAction func touchDigit(sender: UIButton) {
+		print("touchDigit on button: \(sender.currentTitle!)")
+	}
 
 }
 
