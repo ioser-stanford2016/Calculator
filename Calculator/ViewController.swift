@@ -23,10 +23,48 @@ class ViewController: UIViewController {
 	//
 	// First demo code
 	//
-
-	@IBAction func touchDigit(sender: UIButton) {
-		print("touchDigit on button: \(sender.currentTitle!)")
+	private var userEditingDisplay = false
+	private var brain = CalculatorBrain()
+	
+	//
+	// Computed variable example
+	//
+	private var displayValue: Double {
+		get {
+			return Double(display.text!)!
+		}
+		
+		set {
+			display.text = String(newValue)
+		}
 	}
 
+	@IBOutlet private weak var display: UILabel!
+
+	@IBAction private func touchDigit(sender: UIButton) {
+		let digit = sender.currentTitle!
+		if userEditingDisplay {
+			let currentTextInDisplay = display.text!
+			display.text = currentTextInDisplay + digit
+		} else {
+			display.text = digit
+			userEditingDisplay = true
+		}
+		
+		print("touchDigit on button: \(digit)")
+	}
+
+	@IBAction private func pi(sender: UIButton) {
+		if (userEditingDisplay == true) {
+			brain.setOperand(displayValue)
+			userEditingDisplay = false
+		}
+		
+		if let op = sender.currentTitle {
+			brain.peformOperation(op)
+		}
+		
+		displayValue = brain.result
+	}
 }
 
