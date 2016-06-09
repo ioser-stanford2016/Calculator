@@ -47,6 +47,18 @@ class ViewController: UIViewController {
 		displayValue = brain.result
 	}
 
+	@IBAction func touchDot(sender: UIButton) {
+		if userEditingDisplay {
+			if display.text!.rangeOfString(".") != nil {
+				return // We found an existing dot, so do nothing an exit
+			}
+		} else {
+			display.text = "0"
+			userEditingDisplay = true
+		}
+		touchDigit(sender)
+	}
+	
 	@IBAction private func touchDigit(sender: UIButton) {
 		let digit = sender.currentTitle!
 		if userEditingDisplay {
